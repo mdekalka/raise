@@ -1,0 +1,26 @@
+.form-row {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: #32364a;
+  color: #afb1be;
+  outline: none;
+  font-family: $main-font;
+  border: 1px solid #393d52;
+  border-radius: 4px;
+  transition: border-color .2s;
+
+  &:focus {
+    border-color: #8c8b92;
+  }
+}

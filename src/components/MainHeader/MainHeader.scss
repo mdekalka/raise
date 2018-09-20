@@ -1,0 +1,50 @@
+.main-header {
+  display: flex;
+  background-color: #2f353a;
+  transition: background-color .2s;
+  min-height: 65px;
+
+  .header-user-info {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .header-item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 25px;
+
+    &:hover {
+      color: white;
+      background-color: #262d33;
+    }
+  }
+
+  .profile-item {
+    padding: 0;
+  }
+
+  .caret-icon {
+    margin-left: 4px;
+    font-size: 12px;
+  }
+
+ .header-profile-dropdown {
+    padding: 0 25px 0 10px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .header-avatar {
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .header-username {
+    font-size: 15px;
+  }
+}

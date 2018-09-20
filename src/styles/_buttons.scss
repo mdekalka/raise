@@ -1,0 +1,29 @@
+.button {
+  display: inline-block;
+  border-radius: 50px;
+  padding: 6px 35px;
+  font-size: 16px;
+  background-color: #35394a;
+  border: 2px solid #818494;
+  color: #818494;
+  cursor: pointer;
+  transition: background-color .2s, color .2s;
+
+  &:hover {
+    background-color: #818494;
+  }
+
+  &.trans {
+    background-color: transparent;
+  }
+
+  &.purple {
+    border-color: #ca5dc3;
+    color: #ca5dc3;
+
+    &:hover {
+      background-color: #ca5dc3;
+      color: white;
+    }
+  }
+}

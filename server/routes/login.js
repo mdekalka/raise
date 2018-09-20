@@ -7,8 +7,8 @@ var router = express.Router();
 let users = [
   {
       id: 1,
-      username: '123',
-      password: '123'
+      username: 'admin',
+      password: 'admin'
   },
   {
       id: 2,
