@@ -8,7 +8,6 @@ var logger = require('morgan');
 const exjwt = require('express-jwt');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login')
 const forgotPasswordRouter = require('./routes/forgotPassword')
 const registerRouter = require('./routes/register')
@@ -17,7 +16,7 @@ var app = express();
 
 app.use((req, res, next) => {
   // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-type,Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-type, Authorization');
   next();
 });
 
@@ -37,7 +36,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', jwtMW, indexRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/register', registerRouter);

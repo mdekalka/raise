@@ -7,6 +7,10 @@ import { signUpValidation } from '../../utils/validations';
 import { URL } from '../../constants/url';
 
 class AccountRegisterPage extends Component {
+  state = {
+    isFetching: false
+  }
+
   user = {
     username: '',
     email: '',
@@ -14,9 +18,15 @@ class AccountRegisterPage extends Component {
   }
 
   handleSubmit = (user) => {
-    axios.post(URL.auth.register, user).then(_ => {
-      debugger
-    })
+    this.setState({ isFetching: true })
+
+    axios.post(URL.auth.register, user)
+      .then(_ => {
+        debugger
+      })
+      .finally(_ => {
+        this.setState({ isFetching: false });
+      });
   }
 
   render() {
