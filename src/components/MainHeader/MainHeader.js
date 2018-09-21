@@ -11,7 +11,7 @@ import { logoutUser } from '../../actions/logout'
 
 class MainHeader extends Component {
   state = {
-    isDropdownOpen: false
+    isDropdownOpen: true
   }
 
   dropdownToggle = () => {
@@ -43,8 +43,8 @@ class MainHeader extends Component {
                   <FaCaretDown className="caret-icon" />
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem><FaUserCog/>User settings</DropdownItem>
-                <DropdownItem onClick={this.logout}><FaSignOutAlt />Log out</DropdownItem>
+                <DropdownItem><FaUserCog className="dropdown-icon" />User settings</DropdownItem>
+                <DropdownItem onClick={this.logout}><FaSignOutAlt className="dropdown-icon" />Log out</DropdownItem>
               </DropdownMenu>
             </Dropdown>
         </ul>

@@ -32,7 +32,6 @@ export const loginError = (error) => {
 
 export const loginUser = (username, password) => {
   return dispatch => {
-    // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(username, password))
 
     return axios.post('/login', { username, password})
@@ -41,7 +40,9 @@ export const loginUser = (username, password) => {
         dispatch(receiveLogin())
       })
       .catch(err => {
-        dispatch(loginError(err.error))
+        dispatch(loginError(err.error));
+        
+        return Promise.reject();
       })
   }
 }

@@ -1,0 +1,24 @@
+.blinking-point {
+  position: relative;
+  display: inline-block;
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background-color: #ca5dc3;
+  transition: all .95s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 1px solid #ca5dc3;
+    border-radius: 50%;
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+    animation: pulse 1.7s ease-out infinite;
+  }
+}

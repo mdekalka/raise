@@ -12,6 +12,8 @@ import registerServiceWorker from './registerServiceWorker';
 import { store } from './store/store'
 import App from './App';
 
+require('promise.prototype.finally');
+
 render(
   <Provider store={store}>
     <Router>
