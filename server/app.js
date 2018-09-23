@@ -4,13 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// const bodyParser = require('body-parser');
 const exjwt = require('express-jwt');
 
 const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/login')
-const forgotPasswordRouter = require('./routes/forgotPassword')
-const registerRouter = require('./routes/register')
+const loginRouter = require('./routes/login');
+const forgotPasswordRouter = require('./routes/forgotPassword');
+const registerRouter = require('./routes/register');
+
+require('./config/db')
 
 var app = express();
 
