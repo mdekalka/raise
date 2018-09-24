@@ -14,7 +14,7 @@ import Loader from '../../components/Loader/Loader';
 class Login extends Component {
   user = {
     username: 'admin',
-    password: 'admin'
+    password: 'qwe123'
   }
 
   componentDidMount() {

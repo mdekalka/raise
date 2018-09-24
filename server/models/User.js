@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
-const USER_ROLES = require('../constants/roles')
+const USER_ROLES = require('../constants/roles');
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
-    username: { type: String, default: '' }
+    username: { type: String, required: true }
   },
   age: { type: Number, default: null },
-  email: String,
+  email: { type: String, required: true },
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: null },
   title: { type: String, default: '' },
-  password: String,
+  password: { type: String, required: true },
   picture: Buffer,
   role: { type: String, default: USER_ROLES.USER }
 });

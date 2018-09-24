@@ -9,23 +9,14 @@ router.post('/', function(req, res, next) {
   const data = req.body;
   const { email } = data;
 
-  joi.validate(email, emailValidation.required(), err => {
-    console.log(err, 'ERROR')
-    console.log(err.message,'NAME')
-  })
-
-
-  if (!email) {
-    res.status(400).json({ error: 'You should provide an email.', errorCode: 'empty_email' });
-  }
-
-  joi.validate(email, emailValidation, err => {
+  // TODO: joigoose is not seems a good options nowadays, look for more stable validation
+  joi.validate(email, emailValidation.required(), { abortEarly: false }, err => {
     if (err) {
-      res.status(400).json({ error: 'You should provide an valid email.', errorCode: 'invalid_email' });
+      res.status(400).json({ error: err.message, errorCode: 'invalid_email' });
     } else {
-      User.findOne({ email }, (err, user) => {
+      User.findOne({ email }, err => {
         if (err) {
-          res.status(500).json({ error: 'The request can\'t be processed', errorCode: 'inaccessible_database' });
+          res.status(500).json({ error: 'The operation can\'t be processed', errorCode: 'inaccessible_database' });
           throw err;
         }
 

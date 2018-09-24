@@ -10,8 +10,9 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const forgotPasswordRouter = require('./routes/forgotPassword');
 const registerRouter = require('./routes/register');
+const userRouter = require('./routes/user')
 
-require('./config/db')
+require('./config/databaseConnect')
 
 var app = express();
 
@@ -36,10 +37,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Index route
 app.get('/', jwtMW, indexRouter);
+
+// Public routes
 app.use('/login', loginRouter);
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/register', registerRouter);
+
+// Private routes with authentification
+app.use('/user', userRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

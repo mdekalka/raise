@@ -1,26 +1,17 @@
 const jwt = require('jsonwebtoken');
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+const USERS = require('../migrateScripts/usersMock')
 
 
 // MOCKING DB just for test
-let users = [
-  {
-      id: 1,
-      username: 'admin',
-      password: 'admin'
-  },
-  {
-      id: 2,
-      username: 'test2',
-      password: 'asdf12345'
-  }
-];
+const currentUser = USERS[0];
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
   // Use your DB ORM logic here to find user and compare password
-  const user = users.find(user => user.username === username && user.password === password )
+  const user = currentUser.name.username === username && currentUser.password === password;
 
   if (user) {
     //If all credentials are correct do this
@@ -31,7 +22,6 @@ router.post('/', (req, res) => {
           username: user.username,
           id: user.id
         },
-        error: null,
         token
     });
   } else {
