@@ -8,12 +8,20 @@ router.post('/', (req, res) => {
   const { username, password } = req.body;
 
   // TODO: validate username/password
-  User.findOne({ 'name.username': username, password })
+  User.findOne({ 'name.username': username })
     .then(user => {
-      if (user) {
-        const token = jwt.sign({ id: user._id, username: user.name.username }, 'keyboard cat 4 ever', { expiresIn: 129600 });
+      if (!user) {
+        return res.status(400).json({ error: 'The requested user not found.', errorCode: 'not_found'})
+      } else {
+        user.comparePassword(password, function(err, match) {
+          if (match && !err) {
+            const token = jwt.sign({ id: user._id, username: user.name.username }, 'keyboard cat 4 ever', { expiresIn: 129600 });
 
-        return res.json({ userId: user._id, token });
+            res.json({ userId: user._id, token });
+          } else {
+            res.status(400).json({ error: 'The password does not match.', errorCode: 'invalid_data' });
+          }
+        });
       }
 
       res.status(400).json({

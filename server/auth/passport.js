@@ -3,6 +3,8 @@ const passportJWT = require("passport-jwt");
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 
+const User = require('../models/User');
+
 const jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = 'tasmanianDevil';
@@ -13,7 +15,11 @@ const strategy = new JwtStrategy(jwtOptions, function(jwtPayload, next) {
   User.findOneById(jwtPayload.id)
     .then(user => {
       console.log(user, "USER")
-      return next(null, user);
+      if (user) {
+        next(null, false);
+      } else {
+        next(null, user);
+      }
     })
     .catch(err => {
       console.log(err, "ERR")
