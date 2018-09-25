@@ -45,7 +45,7 @@ app.use('/register', registerRouter);
 // Private routes with authentification
 app.use('/user', passportAuth.authenticate(), userRouter);
 
-app.use('/api', apiRoutes);
+// app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
