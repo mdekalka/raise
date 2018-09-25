@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { FaBell, FaSignOutAlt, FaUserCog, FaCaretDown } from 'react-icons/fa';
 
@@ -43,7 +44,7 @@ class MainHeader extends Component {
                   <FaCaretDown className="caret-icon" />
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem><FaUserCog className="dropdown-icon" />User settings</DropdownItem>
+                <Link className="dropdown-item" to="/user/settings"><FaUserCog className="dropdown-icon" />User settings</Link>
                 <DropdownItem onClick={this.logout}><FaSignOutAlt className="dropdown-icon" />Log out</DropdownItem>
               </DropdownMenu>
             </Dropdown>

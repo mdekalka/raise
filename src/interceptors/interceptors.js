@@ -3,7 +3,7 @@ import { authService } from '../services/auth'
 
 axios.interceptors.request.use(config => {
   if (authService.isAuthenticated()) {
-    config.headers.Authorization = 'Bearer ' + authService.getToken()
+    config.headers.Authorization = `bearer ${authService.getToken()}`;
   }
 
   return config;

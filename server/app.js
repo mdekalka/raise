@@ -1,31 +1,26 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-const exjwt = require('express-jwt');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const forgotPasswordRouter = require('./routes/forgotPassword');
 const registerRouter = require('./routes/register');
-const userRouter = require('./routes/user')
+const userRouter = require('./routes/user');
+const passportAuth = require('./auth/passport');
 
 require('./config/databaseConnect')
 
-var app = express();
+const app = express();
+app.use(passportAuth.initialize());
 
 app.use((req, res, next) => {
-  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
   res.setHeader('Access-Control-Allow-Headers', 'Content-type, Authorization');
   next();
 });
-
-const jwtMW = exjwt({
-  secret: 'keyboard cat 4 ever'
-});
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Index route
-app.get('/', jwtMW, indexRouter);
+app.get('/', passportAuth.authenticate(), indexRouter);
 
 // Public routes
 app.use('/login', loginRouter);
@@ -46,7 +41,7 @@ app.use('/forgot-password', forgotPasswordRouter);
 app.use('/register', registerRouter);
 
 // Private routes with authentification
-app.use('/user', userRouter)
+app.use('/user', passportAuth.authenticate(), userRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

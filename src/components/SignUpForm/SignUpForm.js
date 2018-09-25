@@ -48,6 +48,7 @@ class SignUpForm extends Component {
                 <div className="form-error">{errors.password}</div>
               }
           </div>
+          {authError && <div className="auth-error form-error">{authError}</div>}
           <button type="submit" className="button purple trans">Create account</button>
         </form>
         <div className="account-exists">

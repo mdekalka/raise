@@ -14,14 +14,13 @@ router.post('/', function(req, res, next) {
     if (err) {
       res.status(400).json({ error: err.message, errorCode: 'invalid_email' });
     } else {
-      User.findOne({ email }, err => {
-        if (err) {
-          res.status(500).json({ error: 'The operation can\'t be processed', errorCode: 'inaccessible_database' });
-          throw err;
-        }
-
-        res.json({ message: 'Please check your email for steps to reset your password' });
-      });
+      User.findOne({ email })
+        .then(_ => {
+          res.json({ message: 'Please check your email for steps to reset your password' });
+        })
+        .catch(err => {
+          res.status(500).json({ error: 'The operation can\'t be processed', errorCode: 'inaccessible_database' })
+        });
     }
   });
 });

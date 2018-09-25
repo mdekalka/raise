@@ -12,10 +12,10 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Switch>
-          <PrivateRoute exact path="/" component={HomePage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/forgot-password" component={ForgotPasswordPage} />
-          <Route path="/register" component={AccountRegisterPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/forgot-password" component={ForgotPasswordPage} />
+          <Route exact path="/register" component={AccountRegisterPage} />
+          <PrivateRoute path="/" component={HomePage} />
         </Switch>
       </div>
     );

@@ -2,34 +2,29 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
-const USERS = require('../migrateScripts/usersMock')
-
-
-// MOCKING DB just for test
-const currentUser = USERS[0];
+const User = require('../models/User');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
-  // Use your DB ORM logic here to find user and compare password
-  const user = currentUser.name.username === username && currentUser.password === password;
 
-  if (user) {
-    //If all credentials are correct do this
-    let token = jwt.sign({ id: user.id, username: user.username }, 'keyboard cat 4 ever', { expiresIn: 129600 }); // Sigining the token
+  // TODO: validate username/password
+  User.findOne({ 'name.username': username, password })
+    .then(user => {
+      if (user) {
+        const token = jwt.sign({ id: user._id, username: user.name.username }, 'keyboard cat 4 ever', { expiresIn: 129600 });
 
-    res.json({
-        user: {
-          username: user.username,
-          id: user.id
-        },
-        token
+        return res.json({ userId: user._id, token });
+      }
+
+      res.status(400).json({
+        token: null,
+        error: 'Username or password is incorrect',
+        errorCode: 'invalid_data'
+      });
+    })
+    .catch(_ => {
+      res.status(500).json({ error: 'The operation can\'t be processed', errorCode: 'inaccessible_database'});
     });
-  } else {
-    res.status(400).json({
-      token: null,
-      error: 'Username or password is incorrect'
-    });
-  }
 });
 
 module.exports = router;

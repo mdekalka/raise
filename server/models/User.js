@@ -1,23 +1,57 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
 
 const USER_ROLES = require('../constants/roles');
+const SALT_ROUNDS = 10;
+const ROLES_ENUM = Object.values(USER_ROLES);
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
-    username: { type: String, required: true }
+    username: { type: String, required: true, unique: true }
   },
   age: { type: Number, default: null },
-  email: { type: String, required: true },
+  email: { type: String, required: true, lowercase: true, unique: true },
   created: { type: Date, default: Date.now },
   updated: { type: Date, default: null },
   title: { type: String, default: '' },
   password: { type: String, required: true },
   picture: Buffer,
-  role: { type: String, default: USER_ROLES.USER }
+  role: { type: String, enum: ROLES_ENUM, default: USER_ROLES.USER }
 });
 
-const User = mongoose.model('User', userSchema);
+UserSchema.pre('save', function(next) {
+  if (this.isModified('password') || this.isNew) {
+    bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
+      if (err) {
+        return next(err);
+      }
+
+      bcrypt.hash(this.password, salt, null, function(err, hash) {
+        if (err) {
+          return next(err)
+        }
+        
+        this.password = hash;
+        next();
+      });
+    })
+  } else {
+    return next();
+  }
+});
+
+UserSchema.methods.comparePassword = function(password, next) {
+  bcrypt.compare(password, this.password, function(err, match) {
+    if (err) {
+      return next(err);
+    }
+
+    next(null, match);
+  });
+};
+
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

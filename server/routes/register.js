@@ -3,30 +3,38 @@ const joi = require('joi');
 const router = express.Router();
 
 const User = require('../models/User');
+const { MONGO_ERROR_NAME, MONGO_ERRORS } = require('../constants/mongoErrors');
 const { newUserValidation } = require('../validations/validations');
 
 router.post('/', function(req, res) {
   const userData = req.body;
-  const newUser = new User({
+  const newUser = {
     name: {
       username: userData.username
     },
     email: userData.email,
     password: userData.password
-  });
+  };
 
-  joi.validate(newUser, newUserValidation, { abortEarly: false, allowUnknown: true }, err => {
+  joi.validate(newUser, newUserValidation, { abortEarly: false }, err => {
     if (err) {
       res.status(400).json({ error: err.message, errorCode: 'invalid_data' });
     } else {
-      newUser.save(err => {
-        if (err) {
+      new User(newUser).save()
+        .then(user => {
+          res.json({ message: 'New user was successfully created.' });
+        })
+        .catch(err => {
+          console.log(err, 'ASFASF')
+          // TODO:
+          // How to understand which field is duplicated?
+          // Try "count" query
+          if (err.name === MONGO_ERROR_NAME && err.code === MONGO_ERRORS.duplicate) {
+            return res.status(400).json({ error: 'The user with provided username or email already exists.', errorCode: 'duplicate_value' });
+          }
+
           res.status(500).json({ error: 'The operation can\'t be processed.', errorCode: 'inaccessible_database' });
-          throw err;
-        }
-    
-        res.json({ message: 'New user was successfully created' });
-      });
+        });
     }
   });
 });

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+mongoose.Promise = Promise; 
+mongoose.set('useCreateIndex', true);
 
-const DATABASE_NAME = 'praise';
+const DATABASE_NAME = 'raise';
 const config = {
   useNewUrlParser: true
 };
@@ -10,5 +12,5 @@ mongoose.connect(`mongodb://localhost/${DATABASE_NAME}`, config)
     console.log(`Successfully connected to ${DATABASE_NAME} db`)
   })
   .catch(err => {
-    console.log('Connection error', err)
+    console.log('Connection error to database', err)
   });

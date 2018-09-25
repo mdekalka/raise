@@ -8,7 +8,8 @@ import { URL } from '../../constants/url';
 
 class AccountRegisterPage extends Component {
   state = {
-    isFetching: false
+    isFetching: false,
+    registerError: null
   }
 
   user = {
@@ -22,7 +23,10 @@ class AccountRegisterPage extends Component {
 
     axios.post(URL.auth.register, user)
       .then(_ => {
-        debugger
+        console.log('new user success')
+      })
+      .catch(err => {
+        this.setState({ registerError: err.error });
       })
       .finally(_ => {
         this.setState({ isFetching: false });
@@ -38,7 +42,7 @@ class AccountRegisterPage extends Component {
             onSubmit={this.handleSubmit}
             render={({ values, errors, touched, handleChange, handleSubmit }) => (
               <SignUpForm
-                authError={this.props.authError}
+                authError={this.state.registerError}
                 errors={errors}
                 touched={touched}
                 user={values}
