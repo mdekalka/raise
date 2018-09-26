@@ -15,20 +15,14 @@ router.post('/', (req, res) => {
       } else {
         user.comparePassword(password, function(err, match) {
           if (match && !err) {
-            const token = jwt.sign({ id: user._id, username: user.name.username }, 'keyboard cat 4 ever', { expiresIn: 129600 });
+            const token = jwt.sign({ id: user._id, username: user.name.username }, 'tasmanianDevil', { expiresIn: 129600 });
 
-            res.json({ userId: user._id, token });
+            res.json({ token: `bearer ${token}` });
           } else {
             res.status(400).json({ error: 'The password does not match.', errorCode: 'invalid_data' });
           }
         });
       }
-
-      res.status(400).json({
-        token: null,
-        error: 'Username or password is incorrect',
-        errorCode: 'invalid_data'
-      });
     })
     .catch(_ => {
       res.status(500).json({ error: 'The operation can\'t be processed', errorCode: 'inaccessible_database'});

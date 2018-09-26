@@ -22,3 +22,12 @@
     animation: pulse 1.7s ease-out infinite;
   }
 }
+
+.small-loader {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 3px solid rgba(61, 220, 151, 0.1);
+  border-top: 3px solid #ca5dc3;
+  animation: rotate 1.2s ease infinite;
+}

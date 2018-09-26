@@ -13,13 +13,13 @@ import Loader from '../../components/Loader/Loader';
 
 class Login extends Component {
   user = {
-    username: 'admin',
-    password: 'qwe123'
+    username: '',
+    password: ''
   }
 
   componentDidMount() {
     if (authService.isAuthenticated()) {
-      this.props.history.replace('/')
+      this.props.history.replace('/');
     }
   }
 

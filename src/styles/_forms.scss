@@ -32,6 +32,10 @@ input[type="email"] {
     border-color: #8c8b92;
   }
 
+  &.inline {
+    display: inline-block;
+  }
+
   &.input-invalid {
     border-color: #ef4178;
   }

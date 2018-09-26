@@ -5,34 +5,36 @@ const JwtStrategy = passportJWT.Strategy;
 
 const User = require('../models/User');
 
+const JWT = 'jwt';
 const jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = 'tasmanianDevil';
 
 const strategy = new JwtStrategy(jwtOptions, function(jwtPayload, next) {
-  console.log(jwtPayload, '!!!!!!!');
-
-  User.findOneById(jwtPayload.id)
+  User.findById(jwtPayload.id).lean()
     .then(user => {
-      console.log(user, "USER")
       if (user) {
-        next(null, false);
+        const { password, ...restUser } = user;
+        
+        next(null, restUser);
       } else {
-        next(null, user);
+        next(null, false);
       }
     })
     .catch(err => {
-      console.log(err, "ERR")
       return next(err, false);
     });
 });
-passport.use('jwt', strategy);
 
 module.exports = {
+  runStrategy() {
+    return passport.use(JWT, strategy);
+  },
+
   initialize() {
     return passport.initialize();
   },
   authenticate() {
-    return passport.authenticate('jwt', { session: false });
+    return passport.authenticate(JWT, { session: false });
   }
 };

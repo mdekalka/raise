@@ -1,0 +1,31 @@
+.user-settings-page {
+  .header-title {
+    font-size: 20px;
+    padding-left: 6px;
+    border-left: 3px solid #ca5dc3;
+    margin-bottom: 25px;
+  }
+
+  .user-main-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+  }
+
+  .user-image {
+    margin-right: 35px;
+    border-radius: 50%;
+  }
+
+  .user-info-row {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .user-info-highlight {
+    color: #ca5dc3;
+  }
+}

@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const passport = require("passport");
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -9,20 +10,24 @@ const loginRouter = require('./routes/login');
 const forgotPasswordRouter = require('./routes/forgotPassword');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
+const currentUserRoute = require('./routes/currentUser');
 const passportAuth = require('./auth/passport');
 
-require('./config/databaseConnect')
+require('./config/databaseConnect');
 
 const app = express();
 app.use(passportAuth.initialize());
 
+passportAuth.runStrategy();
+
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  // TODO: for some reason CRA proxy in package.json failed due this header. Investigate.
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Headers', 'Content-type, Authorization');
   next();
 });
 
-// const apiRoutes = express.Router();
+const apiV1Routes = express.Router();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,17 +40,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Index route
-app.get('/', passportAuth.authenticate(), indexRouter);
+apiV1Routes.get('/', passportAuth.authenticate(), indexRouter);
 
 // Public routes
-app.use('/login', loginRouter);
-app.use('/forgot-password', forgotPasswordRouter);
-app.use('/register', registerRouter);
+apiV1Routes.use('/login', loginRouter);
+apiV1Routes.use('/forgot-password', forgotPasswordRouter);
+apiV1Routes.use('/register', registerRouter);
+apiV1Routes.use('/currentUser', passportAuth.authenticate(), currentUserRoute);
 
 // Private routes with authentification
-app.use('/user', passportAuth.authenticate(), userRouter);
+apiV1Routes.use('/user', passportAuth.authenticate(), userRouter);
 
-// app.use('/api', apiRoutes);
+app.use('/api/v1', apiV1Routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
