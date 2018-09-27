@@ -1,3 +1,5 @@
+@import '../../styles/_mixins.scss';
+
 .main-header {
   display: flex;
   background-color: #2f353a;
@@ -41,6 +43,7 @@
     display: flex;
     align-items: center;
     height: 100%;
+    max-width: 250px;
   }
 
   .header-avatar {
@@ -51,5 +54,6 @@
 
   .header-username {
     font-size: 15px;
+    @include text-overflow();
   }
 }

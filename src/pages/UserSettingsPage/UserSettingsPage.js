@@ -5,8 +5,45 @@ import { connect } from 'react-redux';
 import './UserSettingsPage.scss';
 
 class UserSettingsPage extends Component {
+  state = {
+    user: null
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.user !== prevState.user && !prevState.user) {
+      return {
+        user: nextProps.user
+      }
+    }
+
+    return null;
+  }
+
+  handleFormChange = (event) => {
+    const { target } = event;
+
+    this.setState(prevState => {
+      return {
+        user: {...prevState.user, [target.name]: target.value}
+      }
+    });
+  }
+
+  handleNameChange = (event) => {
+    const { target } = event;
+
+    this.setState(prevState => {
+      return {
+        user: {...prevState.user, name: {
+          ...prevState.user.name,
+          [target.name]: target.value
+        }}
+      }
+    });
+  }
+
   render() {
-    const { user } = this.props;
+    const { user } = this.state;
 
     return (
       <div className="user-settings-page">
@@ -28,23 +65,23 @@ class UserSettingsPage extends Component {
                   <form className="user-info-form">
                     <div className="form-row">
                       <label htmlFor="firstName">First name:</label>
-                      <input type="text" placeholder="Change you first name" value={user.name.firstName} />
+                      <input type="text" placeholder="Change you first name" name="firstName" onChange={this.handleNameChange} value={user.name.firstName} />
                     </div>
                     <div className="form-row">
                       <label htmlFor="lastName">Last name:</label>
-                      <input type="text" placeholder="Change you last name" value={user.name.lastName} />
+                      <input type="text" placeholder="Change you last name" name="lastName" onChange={this.handleNameChange} value={user.name.lastName} />
                     </div>
                     <div className="form-row">
                       <label htmlFor="age">Age:</label>
-                      <input type="text" placeholder="Change you age" value={user.age} />
+                      <input type="text" placeholder="Change you age" name="age" onChange={this.handleFormChange} value={user.age} />
                     </div>
                     <div className="form-row">
-                      <label htmlFor="age">Email:</label>
-                      <input type="text" placeholder="Change you email" value={user.email} />
+                      <label htmlFor="email">Email:</label>
+                      <input type="text" placeholder="Change you email" name="email" onChange={this.handleFormChange} value={user.email} />
                     </div>
                     <div className="form-row">
-                      <label htmlFor="age">Job title:</label>
-                      <input type="text" placeholder="Change you job title" value={user.title} />
+                      <label htmlFor="title">Job title:</label>
+                      <input type="text" placeholder="Change you job title" name="title" onChange={this.handleFormChange} value={user.title} />
                     </div>
                   </form>
                 </div>
