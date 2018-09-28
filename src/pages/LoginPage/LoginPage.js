@@ -33,6 +33,17 @@ class Login extends Component {
   render() {
     return (
       <div className="login-page page flex-center">
+        <h1 className="company-title">Raise</h1>
+        <div className="moon">
+          <div className="moon-texture"></div>
+        </div>
+        <div className="background-layer layer-1"></div>
+        <div className="background-layer layer-2"></div>
+        <div className="background-layer layer-3"></div>
+        <div className="background-layer layer-4"></div>
+        <div className="background-layer layer-5"></div>
+        <div className="background-layer layer-6"></div>
+        <div className="background-layer layer-7"></div>
         <div className="auth-form">
           <Formik
             initialValues={this.user}

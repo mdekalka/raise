@@ -11,10 +11,8 @@ export const extendUser = (user) => {
 
 export const getFullName = (user) => {
   if (user) {
-    if (user.name.firstName.trim() || user.name.lastName.trim()) {
-      return `${user.name.firstName} ${user.name.lastName}`
-    } else {
-      return user.name.username;
-    }
+    const fullName = [user.name.firstName, user.name.lastName];
+
+    return fullName.filter(name => name && name.trim()).join(' ') || user.name.username;;
   }
 };

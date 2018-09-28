@@ -70,14 +70,14 @@ class ForgotPasswordPage extends Component {
                   </div>
                   <div className="signin-meta">
                     <button className="button purple trans" type="submit">Send Reset Email</button>
-                    <Link className="link" to="/login">Sign In</Link>
+                    <Link className="link" to="/login">Sign In.</Link>
                   </div>
                 </form>
               )}
             />
           }
           <div className="no-account">
-            Don't have an account? <Link className="link" to="/register">Sign Up</Link>
+            Don't have an account? <Link className="link" to="/register">Sign Up.</Link>
           </div>
           {isFetching && <Loader />}
         </div>

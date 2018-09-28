@@ -1,8 +1,10 @@
+@import '../../styles//variables';
+
 .user-settings-page {
   .header-title {
     font-size: 24px;
     padding-left: 6px;
-    border-left: 3px solid #ca5dc3;
+    border-left: 3px solid $curiousBlue;
     margin-bottom: 25px;
   }
 
@@ -26,6 +28,6 @@
   }
 
   .user-info-highlight {
-    color: #ca5dc3;
+    color: $curiousBlue;
   }
 }

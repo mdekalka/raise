@@ -43,7 +43,7 @@ export class SignInForm extends PureComponent {
         </form>
         {authError && <div className="auth-error form-error">{authError}</div>}
         <div className="no-account">
-          Don't have an account? <Link className="link" to="/register">Sign Up</Link>
+          Don't have an account? <Link className="link" to="/register">Sign Up.</Link>
         </div>
       </div>
     )

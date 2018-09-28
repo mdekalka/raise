@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import moment from 'moment'
 import { connect } from 'react-redux';
+import axios from 'axios';
+import debounce from 'lodash/debounce';
 
 import './UserSettingsPage.scss';
+import Badge from '../../components/Badge/Badge';
+import { URL } from '../../constants/url';
+import { currentUserUpdate } from '../../actions/user';
 
+const DEBOUNCE_INPUT_DELAY = 300;
 class UserSettingsPage extends Component {
   state = {
-    user: null
+    user: null,
+    updateUserError: null,
+    isUpdating: false
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -26,10 +34,10 @@ class UserSettingsPage extends Component {
       return {
         user: {...prevState.user, [target.name]: target.value}
       }
-    });
+    }, this.updateUserSettings);
   }
 
-  handleNameChange = (event) => {
+  handleNameChange = event => {
     const { target } = event;
 
     this.setState(prevState => {
@@ -39,8 +47,23 @@ class UserSettingsPage extends Component {
           [target.name]: target.value
         }}
       }
-    });
+    }, this.updateUserSettings);
   }
+
+  updateUserSettings = debounce(() => {
+    const { user } = this.state;
+
+    axios.put(URL.user.userSettings, ...user)
+      .then(_ => {
+        this.props.currentUserUpdate(user);
+      })
+      .catch(err => {
+        this.setState({ updateUserError: err.error });
+      })
+      .finally(_ => {
+        this.setState({ isUpdating: false });
+      })
+  }, DEBOUNCE_INPUT_DELAY)
 
   render() {
     const { user } = this.state;
@@ -48,6 +71,7 @@ class UserSettingsPage extends Component {
     return (
       <div className="user-settings-page">
           <div className="container">
+            <Badge>Updating...</Badge>
             <div className="header-title">Profile settings</div>
             {!user 
               ? <div>Fetching profile information...</div>
@@ -96,4 +120,8 @@ const mapStateToProps = state => ({
   user: state.user.currentUser
 });
 
-export default connect(mapStateToProps)(UserSettingsPage);
+const mapDispatchToProps = {
+  currentUserUpdate
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsPage);

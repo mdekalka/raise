@@ -6,5 +6,8 @@ export const URL = {
     forgotPassword: `${API_VERSION}/forgot-password`,
     register: `${API_VERSION}/register`,
     currentUser: `${API_VERSION}/currentUser`
+  },
+  user: {
+    userSettings: `${API_VERSION}/user/settings`
   }
 };

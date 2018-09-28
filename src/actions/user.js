@@ -12,6 +12,11 @@ export const currentUserReceive = (user) => ({
   user
 })
 
+export const currentUserUpdate = (user) => ({
+  type: 'CURRENT_USER_UPDATE',
+  user
+})
+
 export const fetchCurrentUser = () => {
   return dispatch => {
     dispatch(currentUserRequest());

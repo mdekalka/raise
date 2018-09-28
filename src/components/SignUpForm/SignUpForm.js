@@ -52,7 +52,7 @@ class SignUpForm extends Component {
           <button type="submit" className="button purple trans">Create account</button>
         </form>
         <div className="account-exists">
-          Already have an account? <Link className="link" to="/login">Sign In</Link>
+          Already have an account? <Link className="link" to="/login">Sign In.</Link>
         </div>
       </div>
     )

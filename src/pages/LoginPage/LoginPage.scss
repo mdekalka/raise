@@ -1,7 +1,54 @@
 .login-page {
-  background: url('../../assets/backgrounds/universe.jpg');
+  position: relative;
+  background-image: linear-gradient(#000000, #141020);
+
+  .company-title {
+    position: absolute;
+    top: 100px;
+  }
 
   .auth-form {
     position: relative;
+  }
+
+  .background-layer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  .layer-1 {
+    background-image: url('../../assets//backgrounds/background-7.png');
+    background-position: center;
+  }
+
+  .layer-2 {
+    background-image: url('../../assets//backgrounds/background-6.png');
+    background-position: bottom center;
+  }
+
+  .layer-3 {
+    background-image: url('../../assets//backgrounds/background-5.png');
+    background-position: bottom center;
+  }
+
+  .layer-4 {
+    background-image: url('../../assets//backgrounds/background-4.png');
+    background-position: bottom center;
+  }
+
+  .layer-5 {
+    background-image: url('../../assets//backgrounds/background-3.png');
+    background-position: bottom center;
+  }
+
+  .layer-6 {
+    background-image: url('../../assets//backgrounds/background-2.png');
+    background-position: bottom center;
+  }
+
+  .layer-7 {
+    background-image: url('../../assets//backgrounds/background-1.png');
+    background-position: center;
   }
 }

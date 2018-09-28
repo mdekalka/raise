@@ -6,6 +6,7 @@ import { FaBell, FaSignOutAlt, FaUserCog, FaCaretDown } from 'react-icons/fa';
 
 import './MainHeader.scss';
 
+import Loader from '../../components/Loader/Loader';
 import { logoutUser } from '../../actions/logout'
 import { getFullName } from '../../utils/utils';
 
@@ -21,7 +22,6 @@ class MainHeader extends Component {
 
   logout = () => {
     this.props.logoutUser().then(_ => {
-      window.location.reload();
       this.props.history.replace('/login');
     });
   }
@@ -48,7 +48,7 @@ class MainHeader extends Component {
               data-toggle="dropdown"
               aria-expanded={this.state.isDropdownOpen}>
                 {!user
-                  ? <div className="small-loader"></div>
+                  ? <Loader inline size="small" />
                   : <React.Fragment>
                       <img className="header-avatar" src={user && user.picture} alt="profile" />
                       <span className="header-username">{getFullName(user)}</span>

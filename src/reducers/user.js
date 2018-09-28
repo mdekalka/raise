@@ -14,6 +14,9 @@ const user = (state = initialState, action) => {
     case 'CURRENT_USER_RECEIVE':
       return { ...state, error: null, isFetching: false, currentUser: action.user }
 
+    case 'CURRENT_USER_UPDATE':
+      return { ...state, currentUser: action.user }
+
     default:
       return state
   }
