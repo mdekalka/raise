@@ -53,8 +53,8 @@ class UserSettingsPage extends Component {
   updateUserSettings = debounce(() => {
     const { user } = this.state;
 
-    axios.put(URL.user.userSettings, ...user)
-      .then(_ => {
+    axios.put(URL.user.userSettings, user)
+      .then(() => {
         this.props.currentUserUpdate(user);
       })
       .catch(err => {

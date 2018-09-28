@@ -5,6 +5,7 @@ import axios from 'axios';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import { signUpValidation } from '../../utils/validations';
 import { URL } from '../../constants/url';
+import { authService } from '../../services/auth';
 
 class AccountRegisterPage extends Component {
   state = {
@@ -22,13 +23,16 @@ class AccountRegisterPage extends Component {
     this.setState({ isFetching: true })
 
     axios.post(URL.auth.register, user)
-      .then(_ => {
-        console.log('new user success')
+      .then(response => {
+        this.setState({ registerError: null });
+        authService.setToken(response.token);
+        this.props.history.replace('/');
+
       })
       .catch(err => {
         this.setState({ registerError: err.error });
       })
-      .finally(_ => {
+      .finally(() => {
         this.setState({ isFetching: false });
       });
   }

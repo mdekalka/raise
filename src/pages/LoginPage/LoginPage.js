@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 
 import './LoginPage.scss'
-import { loginUser } from '../../actions/login';
+import { login } from '../../actions/auth';
 import { authService } from '../../services/auth';
 import { signInValidation } from '../../utils/validations';
 
@@ -24,7 +24,7 @@ class Login extends Component {
   }
 
   handleSubmit = (user) => {
-    this.props.loginUser(user.username, user.password)
+    this.props.login(user.username, user.password)
       .then(_ => {
         this.props.history.replace('/');
       });
@@ -72,6 +72,6 @@ const mapStateToProps = state => ({
   authError: state.auth.error
 });
 
-const mapDispatchToProps = { loginUser };
+const mapDispatchToProps = { login };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

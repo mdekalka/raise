@@ -1,8 +1,10 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const joi = require('joi');
 const router = express.Router();
 
 const User = require('../models/User');
+const passportAuth = require('../auth/passport');
 const { MONGO_ERROR_NAME, MONGO_ERRORS } = require('../constants/mongoErrors');
 const { newUserValidation } = require('../validations/validations');
 
@@ -22,13 +24,11 @@ router.post('/', function(req, res) {
     } else {
       new User(newUser).save()
         .then(user => {
-          res.json({ message: 'New user was successfully created.' });
+          const token = jwt.sign({ id: user._id, username: user.name.username }, process.env.SECRET_KEY, { expiresIn: passportAuth.expirationTime });
+
+          res.json({ message: 'New user was successfully created.', token: passportAuth.tokenize(token) });
         })
         .catch(err => {
-          console.log(err, 'ASFASF')
-          // TODO:
-          // How to understand which field is duplicated?
-          // Try "count" query
           if (err.name === MONGO_ERROR_NAME && err.code === MONGO_ERRORS.duplicate) {
             return res.status(400).json({ error: 'The user with provided username or email already exists.', errorCode: 'duplicate_value' });
           }

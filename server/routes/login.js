@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
+const passportAuth = require('../auth/passport');
 const User = require('../models/User');
 
 router.post('/', (req, res) => {
@@ -15,9 +16,9 @@ router.post('/', (req, res) => {
       } else {
         user.comparePassword(password, function(err, match) {
           if (match && !err) {
-            const token = jwt.sign({ id: user._id, username: user.name.username }, 'tasmanianDevil', { expiresIn: 129600 });
+            const token = jwt.sign({ id: user._id, username: user.name.username }, process.env.SECRET_KEY, { expiresIn: passportAuth.expirationTime });
 
-            res.json({ token: `bearer ${token}` });
+            res.json({ token: passportAuth.tokenize(token) });
           } else {
             res.status(400).json({ error: 'The password does not match.', errorCode: 'invalid_data' });
           }

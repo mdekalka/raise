@@ -13,6 +13,6 @@ export const getFullName = (user) => {
   if (user) {
     const fullName = [user.name.firstName, user.name.lastName];
 
-    return fullName.filter(name => name && name.trim()).join(' ') || user.name.username;;
+    return fullName.filter(name => name && name.trim()).join(' ') || user.name.username;
   }
 };

@@ -1,9 +1,11 @@
 const createError = require('http-errors');
-const passport = require("passport");
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
+require('dotenv').config();
+require('./config/databaseConnect');
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -13,16 +15,13 @@ const userRouter = require('./routes/user');
 const currentUserRoute = require('./routes/currentUser');
 const passportAuth = require('./auth/passport');
 
-require('./config/databaseConnect');
-
 const app = express();
 app.use(passportAuth.initialize());
 
 passportAuth.runStrategy();
 
 app.use((req, res, next) => {
-  // TODO: for some reason CRA proxy in package.json failed due this header. Investigate.
-  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Headers', 'Content-type, Authorization');
   next();
 });
@@ -65,8 +64,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.status(err.status || 500).json({ error: 'Application error.' });
 });
 
 module.exports = app;

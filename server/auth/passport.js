@@ -6,9 +6,11 @@ const JwtStrategy = passportJWT.Strategy;
 const User = require('../models/User');
 
 const JWT = 'jwt';
+const AUTH_SCHEMA ='bearer';
+const EXPIRATION_TIME = '24h';
 const jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = 'tasmanianDevil';
+jwtOptions.secretOrKey = process.env.SECRET_KEY;
 
 const strategy = new JwtStrategy(jwtOptions, function(jwtPayload, next) {
   User.findById(jwtPayload.id).lean()
@@ -36,5 +38,9 @@ module.exports = {
   },
   authenticate() {
     return passport.authenticate(JWT, { session: false });
-  }
+  },
+  tokenize(token) {
+    return `${AUTH_SCHEMA} ${token}`;
+  },
+  expirationTime: EXPIRATION_TIME
 };

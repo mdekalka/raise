@@ -7,7 +7,7 @@ import { FaBell, FaSignOutAlt, FaUserCog, FaCaretDown } from 'react-icons/fa';
 import './MainHeader.scss';
 
 import Loader from '../../components/Loader/Loader';
-import { logoutUser } from '../../actions/logout'
+import { logout } from '../../actions/auth'
 import { getFullName } from '../../utils/utils';
 
 
@@ -21,7 +21,7 @@ class MainHeader extends Component {
   }
 
   logout = () => {
-    this.props.logoutUser().then(_ => {
+    this.props.logout().then(_ => {
       this.props.history.replace('/login');
     });
   }
@@ -71,6 +71,6 @@ const mapStateToProps = state => ({
   user: state.user.currentUser
 });
 
-const mapDispatchToProps = { logoutUser }
+const mapDispatchToProps = { logout }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainHeader));
