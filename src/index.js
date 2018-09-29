@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/main.scss';
 
 import './interceptors/interceptors'

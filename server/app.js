@@ -13,6 +13,7 @@ const forgotPasswordRouter = require('./routes/forgotPassword');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
 const currentUserRoute = require('./routes/currentUser');
+const usersRouter = require('./routes/users')
 const passportAuth = require('./auth/passport');
 
 const app = express();
@@ -38,6 +39,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use('/api/v1', apiV1Routes);
+
 // Index route
 apiV1Routes.get('/', passportAuth.authenticate(), indexRouter);
 
@@ -45,12 +49,11 @@ apiV1Routes.get('/', passportAuth.authenticate(), indexRouter);
 apiV1Routes.use('/login', loginRouter);
 apiV1Routes.use('/forgot-password', forgotPasswordRouter);
 apiV1Routes.use('/register', registerRouter);
-apiV1Routes.use('/currentUser', passportAuth.authenticate(), currentUserRoute);
 
 // Private routes with authentification
-apiV1Routes.use('/user', passportAuth.authenticate(), userRouter);
-
-app.use('/api/v1', apiV1Routes);
+apiV1Routes.use('/currentUser', passportAuth.authenticate(), currentUserRoute);
+apiV1Routes.use('/settings', passportAuth.authenticate(), userRouter);
+apiV1Routes.use('/users', passportAuth.authenticate(), usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

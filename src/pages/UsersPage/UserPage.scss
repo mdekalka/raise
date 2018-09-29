@@ -1,0 +1,64 @@
+@import '../../styles/variables';
+
+.user-card-list {
+  text-align: center;
+}
+
+.user-card {
+  width: 280px;
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 10px 20px;
+  border-radius: 6px;
+  background-color: #232f42;
+  cursor: pointer;
+  border: 1px solid #438aa091;
+  transition: box-shadow .2s;
+
+  &:hover {
+    box-shadow: #336c79 2px 2px 11px -2px;
+  }
+
+  .card-header {
+    position: relative;
+    text-align: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: block;
+      opacity: .6;
+      height: 1px;
+      background: $curiousBlue;
+    }
+  }
+
+  .card-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: $curiousBlue;
+  }
+
+  .card-image {
+    height: 100px;
+    margin-top: 15px;
+    border-radius: 50%;
+    border: 1px solid $codGray;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-body {
+    text-align: left;
+    padding-top: 30px;
+  }
+
+  .role-badge {
+    margin-top: 10px;
+  }
+}

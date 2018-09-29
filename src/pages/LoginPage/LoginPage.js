@@ -32,7 +32,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-page page flex-center">
+      <div className="login-page flex-center">
         <h1 className="company-title">Raise</h1>
         <div className="moon">
           <div className="moon-texture"></div>

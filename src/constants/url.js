@@ -7,7 +7,9 @@ export const URL = {
     register: `${API_VERSION}/register`,
     currentUser: `${API_VERSION}/currentUser`
   },
+  users: `${API_VERSION}/users`,
+  resetPassword: `${API_VERSION}/forgot-password/reset`,
   user: {
-    userSettings: `${API_VERSION}/user/settings`
+    userSettings: `${API_VERSION}/settings`
   }
 };

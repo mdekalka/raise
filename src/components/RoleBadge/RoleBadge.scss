@@ -1,0 +1,26 @@
+@import '../../styles//variables';
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  line-height: 1;
+  font-size: 14px;
+  background-color: black;
+  text-transform: lowercase;
+
+  &::first-letter {
+    text-transform: uppercase
+  }
+
+  &.admin-role {
+    color: $lima;
+  }
+
+  &.collaborator-role {
+    color: #f1c40f;
+  }
+
+  &.user-role {
+    color: $curiousBlue;
+  }
+}

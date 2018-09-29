@@ -27,11 +27,11 @@ class MainHeader extends Component {
   }
 
   openUserSettings = () => {
-    this.props.history.push('/user/settings');
+    this.props.history.push('/settings');
   }
 
   openNotifications = () => {
-    this.props.history.push('/user/notifications');
+    this.props.history.push('/notifications');
   }
 
   render() {

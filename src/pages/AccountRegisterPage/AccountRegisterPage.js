@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Formik } from 'formik';
 import axios from 'axios';
 
+import './AccountRegisterPage.scss';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import { signUpValidation } from '../../utils/validations';
 import { URL } from '../../constants/url';
@@ -39,7 +40,7 @@ class AccountRegisterPage extends Component {
 
   render() {
     return (
-      <div className="page flex-center">
+      <div className="account-register-page flex-center">
         <Formik
             initialValues={this.user}
             validationSchema={signUpValidation}

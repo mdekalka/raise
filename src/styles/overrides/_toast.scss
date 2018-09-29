@@ -1,0 +1,55 @@
+.Toastify__toast-container--top-right {
+  top: 0;
+  right: 0;
+}
+
+.Toastify__toast-container {
+  padding: 0;
+}
+
+.Toastify__toast--default {
+  background-color: #202330;
+}
+
+.Toastify__toast {
+  color: $curiousBlue;
+  font-size: 16px;
+  font-family: $main-font;
+  padding: 8px 12px;
+}
+
+.Toastify__close-button {
+  color: $curiousBlue;
+  opacity: 1;
+  align-self: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn cubic-bezier(0.075, 0.82, 0.165, 1) .5s;
+}
+
+.fadeOut {
+  animation: fadeOut cubic-bezier(0.075, 0.82, 0.165, 1) .3s;
+}

@@ -20,7 +20,9 @@ const UserSchema = new mongoose.Schema({
   title: { type: String, default: '' },
   password: { type: String, required: true },
   picture: { type: String, default: null },
-  role: { type: String, enum: ROLES_ENUM, default: USER_ROLES.USER }
+  role: { type: String, enum: ROLES_ENUM, default: USER_ROLES.USER },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 }, { collection: COLLECTION_NAME });
 
 UserSchema.pre('save', function(next) {

@@ -4,12 +4,13 @@ const router = express.Router();
 const User = require('../models/User');
 const RESPONSE_ERRORS = require('../constants/responseErrors');
 
-router.put('/', function(req, res) {
-  User.findByIdAndUpdate(req.user._id, req.body)
-    .then(() => {
-      res.json({ message: 'User was sucessfully updated.' });
+router.get('/', function(req, res) {
+  User.find({ $nor: [{ _id: req.user._id }] }).select('-password')
+    .then(users => {
+      res.json(users);
     })
     .catch(err => {
+      console.log(err, "!!")
       res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
     });
 });
