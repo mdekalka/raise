@@ -8,8 +8,8 @@ const USERS = [
     "created": "2018-03-13T10:39:33.813Z",
     "updated": "2018-08-07T16:01:52.835Z",
     "password": "qwe123",
+    "username": "admin",
     "name": {
-      "username": "admin",
       "firstName": "Admin",
       "lastName": "Admin"
     },
@@ -23,8 +23,8 @@ const USERS = [
     "created": "2017-10-20T20:36:01.041Z",
     "updated": "2017-11-27T16:16:18.898Z",
     "password": "cbGptofqgCNITLp",
+    "username": "Leanna_Bins57",
     "name": {
-      "username": "Leanna_Bins57",
       "firstName": "Jettie",
       "lastName": "Huels"
     }
@@ -38,8 +38,8 @@ const USERS = [
     "created": "2018-04-27T06:41:19.121Z",
     "updated": "2018-09-10T06:48:55.657Z",
     "password": "7ikXe5_ps0xSTf5",
+    "username": "Kenyon_Wunsch43",
     "name": {
-      "username": "Kenyon_Wunsch43",
       "firstName": "Seamus",
       "lastName": "D'Amore"
     }
@@ -53,8 +53,8 @@ const USERS = [
     "created": "2018-04-25T01:19:07.354Z",
     "updated": "2018-06-27T16:38:19.054Z",
     "password": "RjMdKtxGuY4DAhG",
+    "username": "Chad.Funk35",
     "name": {
-      "username": "Chad.Funk35",
       "firstName": "Lucie",
       "lastName": "Sawayn"
     }
@@ -68,8 +68,8 @@ const USERS = [
     "created": "2018-07-11T05:29:37.937Z",
     "updated": "2018-09-15T05:00:09.587Z",
     "password": "Cs9xogiXdv61v3u",
+    "username": "Dino_Marvin",
     "name": {
-      "username": "Dino_Marvin",
       "firstName": "Delphia",
       "lastName": "Anderson"
     }
@@ -83,8 +83,8 @@ const USERS = [
     "created": "2018-05-23T15:08:02.308Z",
     "updated": "2018-05-18T16:19:13.359Z",
     "password": "BL3BCuNvYTTSpNx",
+    "username": "Garret_Braun",
     "name": {
-      "username": "Garret_Braun",
       "firstName": "Ashleigh",
       "lastName": "Fadel"
     }
@@ -98,8 +98,8 @@ const USERS = [
     "created": "2018-09-08T03:53:33.051Z",
     "updated": "2018-06-16T12:31:57.079Z",
     "password": "PSMXcwPjd9ufyYs",
+    "username": "Joe_Eichmann59",
     "name": {
-      "username": "Joe_Eichmann59",
       "firstName": "Lavern",
       "lastName": "Hane"
     }
@@ -113,8 +113,8 @@ const USERS = [
     "created": "2018-09-08T20:36:44.679Z",
     "updated": "2018-06-13T06:17:10.051Z",
     "password": "rHAEDEkd7npylEW",
+    "username": "Lexie_Bernier79",
     "name": {
-      "username": "Lexie_Bernier79",
       "firstName": "Hazle",
       "lastName": "Muller"
     }
@@ -128,8 +128,8 @@ const USERS = [
     "created": "2018-04-13T00:39:08.602Z",
     "updated": "2017-11-22T12:37:51.927Z",
     "password": "N_GW5ToGwPPYY6x",
+    "username": "Althea_Collier56",
     "name": {
-      "username": "Althea_Collier56",
       "firstName": "Gabe",
       "lastName": "Daniel"
     }
@@ -143,8 +143,8 @@ const USERS = [
     "created": "2018-06-22T12:29:41.522Z",
     "updated": "2018-07-05T21:17:47.925Z",
     "password": "etUB126mUYloChs",
+    "username": "Lilyan25",
     "name": {
-      "username": "Lilyan25",
       "firstName": "Katelin",
       "lastName": "Collins"
     }
@@ -158,8 +158,8 @@ const USERS = [
     "created": "2018-05-16T13:42:14.542Z",
     "updated": "2018-04-16T02:03:33.664Z",
     "password": "MiG4dyj4LvlFHZk",
+    "username": "Jackeline5",
     "name": {
-      "username": "Jackeline5",
       "firstName": "Theron",
       "lastName": "Gorczany"
     }
@@ -173,8 +173,8 @@ const USERS = [
     "created": "2018-01-09T05:57:03.436Z",
     "updated": "2018-08-11T00:24:27.532Z",
     "password": "P5LRv2uhiHTEIql",
+    "username": "Forrest94",
     "name": {
-      "username": "Forrest94",
       "firstName": "Madeline",
       "lastName": "Reilly"
     }
@@ -188,8 +188,8 @@ const USERS = [
     "created": "2018-03-31T07:48:02.560Z",
     "updated": "2018-07-03T17:44:51.864Z",
     "password": "te_NYhKw87ccEJv",
+    "username": "Lambert.OConner78",
     "name": {
-      "username": "Lambert.OConner78",
       "firstName": "Freida",
       "lastName": "Greenholt"
     }
@@ -203,8 +203,8 @@ const USERS = [
     "created": "2017-10-21T02:18:18.512Z",
     "updated": "2018-08-23T08:09:40.554Z",
     "password": "Tjnf5JTgiUrrjJT",
+    "username": "Bertha22",
     "name": {
-      "username": "Bertha22",
       "firstName": "Osborne",
       "lastName": "Larkin"
     }
@@ -218,8 +218,8 @@ const USERS = [
     "created": "2017-10-31T09:35:43.295Z",
     "updated": "2018-03-14T13:56:51.570Z",
     "password": "v5LNILcTCq5hL2k",
+    "username": "Cristopher45",
     "name": {
-      "username": "Cristopher45",
       "firstName": "Norbert",
       "lastName": "O'Conner"
     }
@@ -233,8 +233,8 @@ const USERS = [
     "created": "2017-10-15T07:41:11.935Z",
     "updated": "2018-02-23T17:04:58.785Z",
     "password": "ZpZ0Ypr98oaY4I9",
+    "username": "Vern.Labadie",
     "name": {
-      "username": "Vern.Labadie",
       "firstName": "Aron",
       "lastName": "Will"
     }

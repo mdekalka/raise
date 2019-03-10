@@ -10,7 +10,6 @@ router.get('/', function(req, res) {
       res.json(users);
     })
     .catch(err => {
-      console.log(err, "!!")
       res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
     });
 });

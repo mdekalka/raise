@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = Promise; 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 const DATABASE_NAME = 'raise';
 const config = {

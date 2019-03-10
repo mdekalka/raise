@@ -19,11 +19,8 @@ function loadUsers() {
         throw err;
       })
   }))
-  .then(_ => {
-    exit();
-  })
-  .catch(err => {
-    console.log(err);
+  .finally(_ => {
+    console.log('populated')
     exit();
   })
 };

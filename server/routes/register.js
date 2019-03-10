@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
     } else {
       new User(newUser).save()
         .then(user => {
-          const token = jwt.sign({ id: user._id, username: user.name.username }, process.env.SECRET_KEY, { expiresIn: passportAuth.expirationTime });
+          const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: passportAuth.expirationTime });
 
           res.json({ message: 'New user was successfully created.', token: passportAuth.tokenize(token) });
         })
