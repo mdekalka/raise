@@ -3,9 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const expressGraphQL = require('express-graphql');
 
 require('dotenv').config();
 require('./config/databaseConnect');
+
+require('./models');
+const schema = require('./schema/schema');
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -15,6 +19,7 @@ const userRouter = require('./routes/user');
 const currentUserRoute = require('./routes/currentUser');
 const usersRouter = require('./routes/users')
 const passportAuth = require('./auth/passport');
+
 
 const app = express();
 app.use(passportAuth.initialize());
@@ -42,6 +47,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', apiV1Routes);
 
+app.use('/graphql', expressGraphQL({
+  schema,
+  graphiql: true
+}));
+
 // Index route
 apiV1Routes.get('/', passportAuth.authenticate(), indexRouter);
 
@@ -62,6 +72,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log(err, "ERERER")
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

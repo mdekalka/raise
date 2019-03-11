@@ -5,7 +5,7 @@ const IssueSchema = new mongoose.Schema({
   content: { type: String, required: true },
   likes: { type: Number, default: 0 },
   assignment: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'assignment'
   }
 })
