@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "populate": "node ./populateScripts/seed.js"
+    "seed": "node ./populateScripts/seed.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

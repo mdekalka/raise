@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const users = require('./usersMock');
+const assignments = require('./assignmentsMock')
 const User  = require('../models/User');
+const Assignment = require('../models/Assignment')
 
 require('../config/databaseConnect');
 
@@ -13,33 +15,31 @@ const exit = () => {
 const dropModels = async () => {
   try {
     await User.deleteMany({})
+    await Assignment.deleteMany({})
   } catch(err) {
     console.log(err)
   }
 }
 
-const seedUsers = () => {
-  Promise.all(users.map(user => {
+const seedUsers = async () => {
+  return Promise.all(users.map(user => {
     return new User(user).save()
-      .catch(err => {
-        console.log(err);
-        throw err;
-      })
   }))
-  .then(_ => {
-    console.log('successfully seeds')
-    exit();
-  })
-  .catch(err => {
-    console.log('seeding failed with', err)
-    exit();
-  })
 };
+
+const seedAssignments = async() => {
+  return Promise.all(assignments.map(assignment => {
+    return new Assignment(assignment).save()
+  }))
+}
 
 const seedAll = async () => {
   await dropModels()
 
-  seedUsers()
+  await seedUsers()
+  await seedAssignments()
+
+  exit()
 }
 
 seedAll();
