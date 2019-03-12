@@ -1,1 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+seed data for MongoDB -> `yarn seed`
+start server -> `yarn start` from `root/server` folder
+start client => `yarn start` from `root` folder
