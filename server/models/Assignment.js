@@ -6,8 +6,7 @@ const AssignmentSchema = new mongoose.Schema({
   created: { type: Date, default: Date.now },
   issues: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'issue',
-    index: true
+    ref: 'issue'
   }]
 })
 
