@@ -7,6 +7,7 @@ const User = require('../models/User');
 const passportAuth = require('../auth/passport');
 const { MONGO_ERROR_NAME, MONGO_ERRORS } = require('../constants/mongoErrors');
 const { newUserValidation } = require('../validations/validations');
+const RESPONSE_ERRORS = require('../constants/responseErrors');
 
 router.post('/', function(req, res) {
   const userData = req.body;
@@ -33,7 +34,7 @@ router.post('/', function(req, res) {
             return res.status(400).json({ error: 'The user with provided username or email already exists.', errorCode: 'duplicate_value' });
           }
 
-          res.status(500).json({ error: 'The operation can\'t be processed.', errorCode: 'inaccessible_database' });
+          res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
         });
     }
   });

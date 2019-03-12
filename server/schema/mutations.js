@@ -43,7 +43,7 @@ const mutations = new GraphQLObjectType({
       type: AssignmentType,
       args: { id: { type: GraphQLID } },
       resolve(parentValue, { id }) {
-        return AssignmentType.remove({ _id: id });
+        return Assignment.remove({ _id: id });
       }
     },
     updateAssignment: {
@@ -54,7 +54,7 @@ const mutations = new GraphQLObjectType({
         description: { type: GraphQLString },
       },
       resolve(parentValue, { id, title, description }) {
-        AssignmentType.findByIdAndUpdate(id, { title, description })
+        return Assignment.findByIdAndUpdate(id, { title, description })
       }
     }
   }

@@ -4,6 +4,7 @@ const router = express.Router();
 
 const passportAuth = require('../auth/passport');
 const User = require('../models/User');
+const RESPONSE_ERRORS = require('../constants/responseErrors');
 
 router.post('/', (req, res) => {
   const { username, password } = req.body;
@@ -26,7 +27,7 @@ router.post('/', (req, res) => {
       }
     })
     .catch(_ => {
-      res.status(500).json({ error: 'The operation can\'t be processed', errorCode: 'inaccessible_database'});
+      res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
     });
 });
 
