@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
-const USER_ROLES = require('../constants/roles');
+const { USER_ROLES } = require('../constants/constants');
 
 const COLLECTION_NAME = 'users';
 const SALT_ROUNDS = 10;
@@ -27,7 +27,6 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function(next) {
   if (this.isModified('password') || this.isNew) {
-    // It's not bcrypt lib, there is no promises and hash with salt in one func T_T
     bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
       if (err) {
         return next(err);
@@ -51,7 +50,7 @@ UserSchema.methods.comparePassword = function(password) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, function(err, match) {
       if (err || !match) {
-        reject('Invalid password');
+        reject(err || 'Invalid password');
       }
   
       resolve(match);

@@ -38,6 +38,16 @@ class UserSettingsPage extends Component {
     }, this.updateUserSettings);
   }
 
+  handleAgeChange = (event) => {
+    const { target } = event;
+
+    this.setState(prevState => {
+      return {
+        user: {...prevState.user, age: parseInt(target.value, 10)}
+      }
+    }, this.updateUserSettings);
+  }
+
   handleNameChange = event => {
     const { target } = event;
 
@@ -98,7 +108,7 @@ class UserSettingsPage extends Component {
                 </div>
                 <div className="form-row">
                   <label htmlFor="age">Age:</label>
-                  <input type="text" placeholder="Change you age" name="age" onChange={this.handleFormChange} value={user.age} />
+                  <input type="text" placeholder="Change you age" name="age" onChange={this.handleAgeChange} value={user.age} />
                 </div>
                 <div className="form-row">
                   <label htmlFor="email">Email:</label>

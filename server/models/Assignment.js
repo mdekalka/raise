@@ -17,7 +17,7 @@ AssignmentSchema.statics.addIssue = function(id, title, content) {
     const issue = new Issue({ assignment, title, content })
 
     return Promise.all([issue.save(), assignment.update({ $push: { issues: issue } }) ])
-      .then(_ => assignment)
+      .then(() => assignment)
   })
 }
 

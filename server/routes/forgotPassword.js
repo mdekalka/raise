@@ -1,61 +1,76 @@
 const express = require('express');
-const joi = require('joi');
 const crypto = require('crypto');
 const router = express.Router();
 
 const User = require('../models/User');
-const { emailValidation } = require('../validations/validations');
-const RESPONSE_ERRORS = require('../constants/responseErrors');
-const userService = require('../services/user')
+const { EXPIRATION_TIME } = require('../constants/constants');
+const { validateEmail } = require('../validations/validations')
+const { sendResponse } = require('../utils/utils')
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
   const  { email } = req.body;
 
-  joi.validate(email, emailValidation.required(), { abortEarly: false }, err => {
-    if (err) {
-      res.status(400).json({ error: err.message, errorCode: 'invalid_email' });
+  try {
+    await validateEmail(email)
+  } catch (err) {
+    return sendResponse(res, 400, { error: err.message, errorCode: 'invalid_email' })
+  }
+
+  try {
+    const user = await User.findOne({ email })
+
+    if (!user) {
+      return sendResponse(res, 400, { error: 'No account with that email exists.' })
     }
 
-    User.findOne({ email })
-      .then(user => {
-        if (!user) {
-          res.status(400).json({ error: 'No account with that email exists.' });
-        }
-
-        crypto.randomBytes(20, function(err, buffer) {
-          if (err) {
-            res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
-          }
-
-          const token = buffer.toString('hex');
-
-          userService.setResetToken(user, token)
-            .then(() => res.json({ resetToken: token }))
-            .catch(() => res.status(500).json(RESPONSE_ERRORS.inaccessible_database))
-        });
-      })
-      .catch(err => {
-        res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
-      });
-  });
-});
-
-router.post('/reset', function(req, res, next) {
-  const { token, password } = req.body;
-
-  User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
-    .then(user => {
-      if(!user) {
-        res.status(400).json({ error: 'Password reset token is invalid or has expired.' });
+    crypto.randomBytes(20, async function(err, buffer) {
+      if (err) {
+        return sendResponse(res)
       }
 
-      userService.resetUserPassword(user, password)
-        .then(() => res.json({ message: 'Your password wassuccessfully updated.'}))
-        .catch(() => res.status(500).json(RESPONSE_ERRORS.inaccessible_database))
-    })
-    .catch(err => {
-      res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
-    })
+      const token = buffer.toString('hex');
+
+      user.resetPasswordToken = token;
+      user.resetPasswordExpires = EXPIRATION_TIME
+    
+      try {
+        await user.save()
+
+        return sendResponse(res, 200, { resetToken: token })
+      } catch (err) {
+        throw new Error('user save failed')
+      }
+    });
+  } catch (err) {
+    return sendResponse(res)
+  }
+});
+
+router.post('/reset', async function(req, res, next) {
+  const { token, password } = req.body;
+
+  try {
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } })
+
+    if (!user) {
+      return sendResponse(res, 400, { error: 'Password reset token is invalid or has expired.' })
+    }
+
+    user.password = password;
+    user.resetPasswordToken = null;
+    user.resetPasswordExpires = null;
+  
+    try {
+      await user.save()
+
+      return sendResponse(res, 200, { message: 'Your password wassuccessfully updated.'})
+    } catch (err) {
+      throw new Error('user save failed')
+    }
+
+  } catch (err) {
+    return sendResponse(res)
+  }
 });
 
 module.exports = router;

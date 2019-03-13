@@ -15,9 +15,7 @@ const IssueType = new GraphQLObjectType({
       type: require('./assignment_type'),
       resolve(parentValue) {
         return Issue.findById(parentValue).populate('assignment')
-          .then(issue => {
-            return issue.assignment
-          });
+          .then(issue => issue.assignment);
       }
     }
   })

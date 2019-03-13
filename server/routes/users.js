@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/User');
-const RESPONSE_ERRORS = require('../constants/responseErrors');
+const { sendResponse } = require('../utils/utils')
 
-router.get('/', function(req, res) {
-  User.find({ $nor: [{ _id: req.user._id }] }).select('-password')
-    .then(users => {
-      res.json(users);
-    })
-    .catch(err => {
-      res.status(500).json(RESPONSE_ERRORS.inaccessible_database);
-    });
+router.get('/', async function(req, res) {
+
+  try {
+    const users = await User.find({ $nor: [{ _id: req.user._id }] }).select('-password')
+
+    return sendResponse(res, 200, users)
+  } catch (err) {
+    return sendResponse(res)
+  }
 });
 
 module.exports = router;
