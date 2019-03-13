@@ -7,36 +7,33 @@ const User = require('../models/User');
 const RESPONSE_ERRORS = require('../constants/responseErrors');
 const { validateUserLogin } = require('../validations/validations')
 
-const comparePassword = (user, password, res) => {
-  return user.comparePassword(password)
-    .then(() => {
-      const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: passportAuth.expirationTime });
-
-      return res.json({ token: passportAuth.tokenize(token) });
-    })
-    .catch(err => {
-      return res.status(400).json({ error: 'The password does not match.', errorCode: 'invalid_data' });
-    })
-} 
-
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { username, password } = req.body;
 
-  validateUserLogin({ username, password })
-    .then(() => {
-      User.findOne({ username })
-        .then(user => {
-          if (!user) {
-            res.status(400).json({ error: 'The requested user not found.', errorCode: 'not_found'})
-          }
+  try {
+    await validateUserLogin({ username, password })
+  } catch(error) {
+    return res.status(400).json({ error });
+  }
 
-          return comparePassword(user, password, res)
-        })
-        .catch(() => res.status(500).json(RESPONSE_ERRORS.inaccessible_database))
-    })
-    .catch(err => {
-      res.status(400).json({ error: err });
-    })
+  try {
+    const user = await User.findOne({ username })
+
+    if (!user) {
+      return res.status(400).json({ error: 'The requested user not found.', errorCode: 'not_found'})
+    }
+
+    try {
+      const token = await user.comparePassword(password)
+
+      return res.json({ token });
+    } catch (err) {
+      return res.status(400).json({ error: 'The password does not match.', errorCode: 'invalid_data' });
+    }
+
+  } catch(err) {
+    return res.status(500).json(RESPONSE_ERRORS.inaccessible_database)
+  }
 });
 
 module.exports = router;

@@ -7,10 +7,10 @@ const validate = (data, validation, options) => {
   return new Promise((resolve, reject) => {
     joi.validate(data, validation, options, err => {
       if (err) {
-        return reject(err.message);
+        reject(err.message);
       }
 
-      return resolve();
+      resolve();
     })
   })
 }
