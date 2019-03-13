@@ -14,11 +14,7 @@ const IssueSchema = new mongoose.Schema({
 IssueSchema.statics.like = function(id) {
   const Issue = mongoose.model('issue')
 
-  return Issue.findById(id).then(issue => {
-    ++issue.likes;
-
-    return issue.save()
-  })
+  return Issue.findByIdAndUpdate(id, { $inc: { 'likes': 1 } }, { new: true })
 }
 
 const Assignment = mongoose.model('issue', IssueSchema);

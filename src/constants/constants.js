@@ -5,3 +5,4 @@ export const USER_ROLES = {
   COLLABORATOR: 'COLLABORATOR',
   USER: 'USER'
 };
+

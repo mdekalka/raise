@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function(next) {
   if (this.isModified('password') || this.isNew) {
+    // It's not bcrypt lib, there is no promises and hash with salt in one func T_T
     bcrypt.genSalt(SALT_ROUNDS, (err, salt) => {
       if (err) {
         return next(err);

@@ -16,10 +16,8 @@ AssignmentSchema.statics.addIssue = function(id, title, content) {
   return this.findById(id).then(assignment => {
     const issue = new Issue({ assignment, title, content })
 
-    assignment.issues = [...assignment.issues, issue]
-
-    return Promise.all([issue.save(), assignment.save()])
-      .then(([_, assignment]) => assignment)
+    return Promise.all([issue.save(), assignment.update({ $push: { issues: issue } }) ])
+      .then(_ => assignment)
   })
 }
 

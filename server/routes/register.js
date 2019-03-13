@@ -12,9 +12,7 @@ const RESPONSE_ERRORS = require('../constants/responseErrors');
 router.post('/', function(req, res) {
   const userData = req.body;
   const newUser = {
-    name: {
-      username: userData.username
-    },
+    username: userData.username,
     email: userData.email,
     password: userData.password
   };
