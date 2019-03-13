@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressGraphQL = require('express-graphql');
+const params = require('strong-params')
 
 require('dotenv').config();
 require('./config/databaseConnect');
@@ -43,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(params.expressMiddleware())
 
 app.use('/api/v1', apiV1Routes);
 

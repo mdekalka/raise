@@ -47,14 +47,16 @@ UserSchema.pre('save', function(next) {
   }
 });
 
-UserSchema.methods.comparePassword = function(password, next) {
-  bcrypt.compare(password, this.password, function(err, match) {
-    if (err) {
-      return next(err);
-    }
-
-    next(null, match);
-  });
+UserSchema.methods.comparePassword = function(password) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, this.password, function(err, match) {
+      if (err || !match) {
+        reject('Invalid password');
+      }
+  
+      resolve(match);
+    });
+  })
 };
 
 const User = mongoose.model('user', UserSchema);
