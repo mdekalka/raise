@@ -24,9 +24,11 @@ router.post('/', async (req, res) => {
     }
 
     try {
-      const token = await user.comparePassword(password)
+      await user.comparePassword(password)
 
-      return res.json({ token });
+      const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: passportAuth.expirationTime });
+
+      return res.json({ token: passportAuth.tokenize(token) });
     } catch (err) {
       return res.status(400).json({ error: 'The password does not match.', errorCode: 'invalid_data' });
     }
